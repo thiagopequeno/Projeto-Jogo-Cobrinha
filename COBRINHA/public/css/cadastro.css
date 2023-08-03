@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#playButton2,#playButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffeeaa;
+    /* Amarelo fraquinho (#ffeeaa) */
+    color: black;
+    /* Cor do texto preto */
+    font-style: italic;
+    /* Fonte em itálico */
+    border: none;
+    /* Removendo a borda */
+    padding: 10px 20px;
+    /* Espaçamento interno */
+    cursor: pointer;
+    /* Alterando o cursor para o ícone de mão (estilo de clique) */
+    border-radius: 5px;
+    /* Borda arredondada */
+}
+
+/* Estilos de hover (quando o cursor passa sobre o botão) */
+#playButton2:hover {
+    background-color: #ffdd99;
+    /* Amarelo mais claro (#ffdd99) */
+}
+#playButton:hover{
+    background-color: #ffdd99;
+}
+
+/* Estilos de foco (quando o botão está focado, por exemplo, ao pressionar a tecla Tab) */
+#playButton2:focus {
+    outline: none;
+}
+#playButton:focus {
+    outline: none;
+}
+
+i {
+    font-size: 20px;
+    color: #cae000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#filhinho {
+    display: none;
+}
+
+header {
+
+    display: flex;
+    width: 100%;
+    height: 35px;
+    background: linear-gradient(135deg, #00ff00, #8a2be2, #ff69b4);
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-image: url("https://psverso.com.br/wp-content/uploads/2022/09/melhores-jogos-cobrinha.webp");
+    background-size: cover;
+    position: fixed;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    /* z-index: 9999; */
+
+}
+
+.form {
+    position: absolute;
+    width: 20%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ccc;
+    /* Borda cinza */
+    padding: 20px;
+    border-radius: 10px;
+    /* Bordas arredondadas */
+}
+
+/* Estilos para as labels dentro da .form */
+.form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Estilos para os inputs dentro da .form */
+.form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#butao,
+#login {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container .form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos do Swiper */
+.swiper-container {
+    width: 100%;
+    height: 50px;
+    background-color: #007bff;
+    /* Cor de fundo para caso a imagem não preencha toda a área */
+    position: relative;
+    /* Para que a imagem seja posicionada corretamente dentro do contêiner */
+    overflow: hidden;
+}
+
+.swiper-container img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    /* Para que a imagem preencha todo o espaço disponível mantendo sua proporção */
+    /* position: absolute; Posiciona a imagem em relação ao contêiner */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.swiper-slide {
+    flex: 25%;
+    /* Cada slide ocupará 25% da largura do contêiner */
+    height: 100%;
+}
+
+/* Estilos para as imagens dentro de cada slide */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Para que as imagens preencham todo o espaço do slide */
+}
+
+.irlogin {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.swiper-container {
+    background-image: url("https://www.imagensanimadas.com/data/media/50/flor-imagem-animada-0360.gif");
+    width: 100%;
+    height: 300px;
+    /* Altura desejada do carrossel */
+    background-color: #f0f0f0;
+    /* Cor de fundo para caso a imagem não preencha toda a área */
+    position: relative;
+    /* Para que a imagem seja posicionada corretamente dentro do contêiner */
+    overflow: hidden;
+    /* Certifique-se de que a imagem não ultrapasse o contêiner */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+  }
+
+  /* Estilos do círculo giratório */
+  .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #00ff00;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    display: block;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #00ff00;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  /* Animação do círculo giratório */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+
+
+  
+ 

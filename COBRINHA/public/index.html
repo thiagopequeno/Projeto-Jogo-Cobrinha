@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body style="background-color: #781ecc;">
+    <br><br><br>
+    <div class="score">score: <h1>00</h1>
+    </div>
+    <div class="menu" id="modal">
+        <a href="rank.html" class="botao">Ir para a página Rank</a>
+        <img src="https://dol.com.br/img/Artigo-Destaque/780000/perdeu-mane_00782439_0_.jpg?xid=2473480" alt="">
+        <span>Game Over</span>
+        <span>Score Final: <h1 id="score-final">00</h1></span>
+        <h2 id="btn"> <b> <i>Play Again</i></b></h2>
+    </div>
+    <canvas width="600" height="600"></canvas>
+    <script src="./js/script.js"></script>
+    <audio src="./assets/musiquinha.mp3"></audio>
+    
+</body>
+
+</html>
+<script>
+    
+    const Ip="10.18.6.64"
+    var cadastro = document.getElementById("butao")
+    var login = document.getElementById("login")
+
+
+    var span = document.querySelector("span")
+    var span2 = document.querySelector("#ircadastro")
+
+    span.addEventListener("click", () => {
+        var containerElement = document.getElementById("pai");
+        var containerElement2 = document.getElementById("filhinho")
+
+        containerElement.style.display = "none"
+        containerElement2.style.display = "block"
+    })
+    span2.addEventListener("click", () => {
+        var containerElement = document.getElementById("pai");
+        var containerElement2 = document.getElementById("filhinho")
+
+        containerElement.style.display = "block"
+        containerElement2.style.display = "none"
+    })
+
+    cadastro.addEventListener("click", () => {
+
+        let nome = document.getElementById("nome").value
+        let email = document.getElementById("email").value
+        let senha = document.getElementById("senha").value
+        var dados = {
+            nome: nome,
+            email: email,
+            senha: senha
+        }
+
+        if (nome == "" || email == "" || senha == "") {
+            console.log(dados);
+            alert("Preencha todos os campos")
+        } else {
+            fetch(`http://${Ip}:8080/usuario/cadastrar`, {
+                method: "POST",
+                body: JSON.stringify(dados),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Cadastrado com sucesso");
+                    var containerElement = document.getElementById("pai");
+                    var containerElement2 = document.getElementById("filhinho")
+
+                    containerElement.style.display = "none"
+                    containerElement2.style.display = "block"
+                } else {
+                    console.log(response.Error);
+                    alert("Erro ao cadastrar");
+                    throw new Error("algo deu errado ;(");
+                }
+            }).then(data => {
+                console.log(data);
+            }).catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    });
+
+
+
+    login.addEventListener("click", () => {
+
+        let email = document.getElementById("email_login").value
+        let senha = document.getElementById("senha_login").value
+        var dados = {
+            email: email,
+            senha: senha
+        }
+
+        if (email == "" || senha == "") {
+            console.log(dados);
+            alert("Preencha todos os campos")
+        } else {
+            fetch(`http://${Ip}:8080/usuario/logar`, {
+                method: "POST",
+                body: JSON.stringify(dados),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                response.json()
+                    .then((res) => {
+
+                        alert("Login com sucesso");
+                        var containerElement = document.getElementById("pai");
+                        var containerElement2 = document.getElementById("filhinho")
+                        var modal = document.querySelector(".modal")
+
+                        modal.style.display = "block"
+
+                        setTimeout(() => {
+                            window.location.href = "index.html"
+
+                        }, 2000)
+
+                        containerElement.style.display = "none"
+                        containerElement2.style.display = "block"
+
+                        alert(`ID pego ${res.idUsuario} com sucesso`)
+                        var iduser = res.idUsuario
+                        sessionStorage.setItem("idUsuario",iduser)
+                        console.log(iduser);
+                    }).catch(error => {
+                        console.error('Erro:', error);
+                    });
+                    
+                }).catch(error => {
+                    console.error('Erro:', error);
+                });
+            }
+    });
+</script>

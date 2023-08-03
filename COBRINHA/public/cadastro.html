@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <script src="./js/cadastro.js" defer></script>
+
+    <title>Cadastro</title>
+</head>
+
+<body>
+
+    
+
+    <header> <i>Speed Snake</i></header>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!-- Slides do carrossel -->
+            <!-- Adicione mais slides conforme necessário -->
+        </div>
+    </div>
+
+    </div>
+
+    <div class="container">
+        <div class="form" id="pai">
+            <h2 style="color: white;"> <i>Faça seu cadastro</i></h2>
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu email">
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+            <input type="submit" id="butao" value="Cadastrar">
+            <button id="playButton">Startar musiquinha</button>
+            <span class="irlogin"> <i>Ja tem cadastro ?</i></span>
+        </div>
+        <div class="form" id="filhinho">
+            <h2 style="color: white;"> <i>Faça login</i></h2>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email_login" placeholder="Digite seu email">
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha_login" placeholder="Digite sua senha">
+            <input type="submit" id="login" value="Login">
+            <button id="playButton2">Startar musiquinha</button>
+            <span class="irlogin" id="ircadastro"><i>Voltar a cadastro?</i></span>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="loader"></div>
+        <i>Redirecionando</i>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <audio src="./assets/cadastro.mp3" class="audiocadastro"></audio>
+    <footer>
+        <p>Thiago Pequeno Sptecher 2x </p>
+        <p>Email:thiago.castro@sptech.com</p>
+    </footer>
+</body>
+
+</html>
+<script>
+    const Ip="10.18.6.64"
+    var cadastro = document.getElementById("butao")
+    var login = document.getElementById("login")
+
+
+    var span = document.querySelector("span")
+    var span2 = document.querySelector("#ircadastro")
+
+    span.addEventListener("click", () => {
+        var containerElement = document.getElementById("pai");
+        var containerElement2 = document.getElementById("filhinho")
+
+        containerElement.style.display = "none"
+        containerElement2.style.display = "block"
+    })
+    span2.addEventListener("click", () => {
+        var containerElement = document.getElementById("pai");
+        var containerElement2 = document.getElementById("filhinho")
+
+        containerElement.style.display = "block"
+        containerElement2.style.display = "none"
+    })
+
+    cadastro.addEventListener("click", () => {
+
+        let nome = document.getElementById("nome").value
+        let email = document.getElementById("email").value
+        let senha = document.getElementById("senha").value
+        var dados = {
+            nome: nome,
+            email: email,
+            senha: senha
+        }
+
+        if (nome == "" || email == "" || senha == "") {
+            console.log(dados);
+            alert("Preencha todos os campos")
+        } else {
+            fetch(`http://${Ip}:8080/usuario/cadastrar`, {
+                method: "POST",
+                body: JSON.stringify(dados),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Cadastrado com sucesso");
+                    var containerElement = document.getElementById("pai");
+                    var containerElement2 = document.getElementById("filhinho")
+
+                    containerElement.style.display = "none"
+                    containerElement2.style.display = "block"
+                } else {
+                    console.log(response.Error);
+                    alert("Erro ao cadastrar");
+                    throw new Error("algo deu errado ;(");
+                }
+            }).then(data => {
+                console.log(data);
+            }).catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    });
+
+
+
+    login.addEventListener("click", () => {
+
+        let email = document.getElementById("email_login").value
+        let senha = document.getElementById("senha_login").value
+        var dados = {
+            email: email,
+            senha: senha
+        }
+
+        if (email == "" || senha == "") {
+            console.log(dados);
+            alert("Preencha todos os campos")
+        } else {
+            fetch(`http://${Ip}:8080/usuario/logar`, {
+                method: "POST",
+                body: JSON.stringify(dados),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                response.json()
+                    .then((res) => {
+                        if(res.email==dados.email && res.senha==dados.senha){
+                            console.log("logado com sucesso");
+                            
+                            var containerElement = document.getElementById("pai");
+                            var containerElement2 = document.getElementById("filhinho")
+                            var modal = document.querySelector(".modal")
+                            
+                        modal.style.display = "block"
+                        
+                        setTimeout(() => {
+                            window.location.href = "index.html"
+                            
+                        }, 2000)
+                        
+                        containerElement.style.display = "none"
+                        containerElement2.style.display = "block"
+
+                        alert(`ID pego ${res.idUsuario} com sucesso`)
+                        var iduser = res.idUsuario
+                        sessionStorage.setItem("idUsuario",iduser)
+                        console.log(iduser);
+                    }else{
+
+                        alert("Email ou senha incorretos")}
+                    }).catch(error => {
+                        console.error('Erro:', error);
+                    });
+                    
+                }).catch(error => {
+                    console.error('Erro:', error);
+                });
+            }
+    });
+
+
+
+</script>
